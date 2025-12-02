@@ -85,15 +85,15 @@
 
         const user = students.find(s => s.name === name && s.password === password);
 
-        if (user) {
-          localStorage.setItem("loggedUser", JSON.stringify(user));
-          window.location.href = "main.html";
-        } else {
-          error.textContent = "❌ الاسم أو كلمة السر غير صحيحة";
-        }
+   
+fetch('/api/v1/data')
+    .then(response => response.json())
+    .then(data => console.log(data));
+
       
     }
   </script>
 </body>
 
 </html>
+
