@@ -68,7 +68,7 @@
   <button onclick="login()">🚀 دخول</button>
   <div class="error" id="error"></div>
   </div>
-  <script>
+   <script>
     async function login() {
       const name = document.getElementById('username').value.trim();
       const password = document.getElementById('password').value.trim();
@@ -79,31 +79,30 @@
         return;
       }
 
-      try {
-        const res = await fetch("students.json");
-        const students = await res.json();
+  try {
+    const res = await fetch("students.json");
+    const students = await res.json();
 
-        const user = students.find(s => s.name === name && s.password === password);
+    const user = students.find(s => s.name === name && s.password === password);
 
-        if (user) {
-          // عند النشر، سيصبح الرابط تلقائياً yourwebsite.com
-            fetch('/api/v1/data')
-              .then(response => response.json())
-              .then(data => console.log(data));setItem( JSON.stringify(user));
-                window.location.href = "main.html";
-        } else {
-          error.textContent = "❌ الاسم أو كلمة السر غير صحيحة";
-        }
-      }
-      catch (err) {
-        console.error(err);
-        error.textContent = "حدث خطأ أثناء محاولة تسجيل الدخول. حاول مرة أخرى لاحقاً.";
-      }
+    if (user) {
+      // عند النشر، سيصبح الرابط تلقائياً yourwebsite.com
+      Reverse .setItem("user", JSON.stringify(user));
+      window.location.href = "main.html";
+    } else {
+      error.textContent = "❌ الاسم أو كلمة السر غير صحيحة";
     }
+  } catch (err) {
+    error.textContent = "❌ حدث خطأ في الاتصال";
+  }
+}
+   
+    
 
     
       
 
   </script>
 </body>
+
 </html>
