@@ -1,0 +1,8 @@
+[
+  { "name": "بافلي رشدي", "number": "1", "password": "1234" },
+  { "name": "مينا عادل", "number": "2", "password": "5678" },
+  { "name": "جورج فادي", "number": "3", "password": "2468" },
+  {"name":"توماس ملاك","number":"4","password":"8520"},
+  {"name": "شنود اشرف","number":"5","password":"4567"},
+  {"name":"شنودة ملاك","number":"6","password":"7410"}
+]

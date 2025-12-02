@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول - خدمة إعدادي بنين</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      /* background-image: url(WhatsApp\ Image\ 2025-11-12\ at\ 9.00.02\ PM\ \(1\).jpeg); */
+     
+      background-image:url(WhatsApp\ Image\ 2025-11-12\ at\ 11.24.39\ PM.jpeg);
+      height: 100vh;
+      background-size:  100%;
+      height: auto;
+      background-repeat: no-repeat;
+      text-align:center;
+      padding-top: 100px;
+      flex-wrap: wrap;
+    }
+    div{
+      border: solid 3px transparent;
+      color: rgb(0, 0, 0 ,02);
+      backdrop-filter: blur(5px);
+      flex-wrap: wrap;
+    }
+    h1 {
+      color: #004aad;
+    }
+
+    input {
+      display: block;
+      margin: 10px auto;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 18px;
+      width: 80%;
+      max-width: 300px;
+    }
+
+    button {
+      background: #004aad;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #003080;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="log">
+ <h1>⛪ تسجيل الدخول لخدمة إعدادي بنين</h1>
+  <input type="text" id="username" placeholder="اسم الطالب">
+  <input type="password" id="password" placeholder="كلمة السر">
+  <button onclick="login()">🚀 دخول</button>
+  <div class="error" id="error"></div>
+  </div>
+  <script>
+    async function login() {
+      const name = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const error = document.getElementById('error');
+
+      if (!name || !password) {
+        error.textContent = "من فضلك أدخل الاسم وكلمة السر";
+        return;
+      }
+
+      try {
+        const res = await fetch("students.json");
+        const students = await res.json();
+
+        const user = students.find(s => s.name === name && s.password === password);
+
+        if (user) {
+          // عند النشر، سيصبح الرابط تلقائياً yourwebsite.com
+            fetch('/api/v1/data')
+              .then(response => response.json())
+              .then(data => console.log(data));setItem( JSON.stringify(user));
+                window.location.href = "main.html";
+        } else {
+          error.textContent = "❌ الاسم أو كلمة السر غير صحيحة";
+        }
+      }
+      catch (err) {
+        console.error(err);
+        error.textContent = "حدث خطأ أثناء محاولة تسجيل الدخول. حاول مرة أخرى لاحقاً.";
+      }
+    }
+
+    
+      
+
+  </script>
+</body>
+</html>
