@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نظام خدمة إعدادي بنين</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background : linear-gradient(red ,blue);
+      color: #272727;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .intro, .main {
+      display: none;
+      padding: 20px;
+    }
+
+    .intro.active {
+      display: block;
+      background: 
+      linear-gradient(180deg, #e6eeff, #ffffff)
+       ,url(WhatsApp\ Image\ 2025-11-12\ at\ 11.20.01\ PM.jpeg) ;
+      
+      min-height: 100vh;
+    }
+     .intro.active:hover{
+         background: linear-gradient( #e6eeff, transparent)   
+         ,url(WhatsApp\ Image\ 2025-11-12\ at\ 11.20.01\ PM.jpeg);
+         background-repeat: no-repeat;
+         background-size: cover;
+     }
+
+    .main.active {
+      display: block;
+      background: #f0f4ff;
+    }
+
+    h1 {
+      color: #004aad;
+    }
+
+    img {
+      max-width: 200px;
+      border-radius: 15px;
+      margin: 10px 0;
+    }
+
+    p {
+      font-size: 18px;
+      margin: 8px 0;
+    }
+
+    button {
+      background: #004aad;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #003080;
+    }
+
+    input, select {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .student-list, .teams {
+      margin-top: 20px;
+      padding: 10px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .ff{
+      justify-content: center;
+      text-align: center;
+    }
+
+    .team {
+      background: #e0ecff;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+
+    th {
+      background: #d6e4ff;
+    }
+
+    .absent {
+      background-color: #ffcaca;
+    }
+
+    .points {
+      background: #dfffd8;
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    .logout {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #ff4d4d;
+    }
+
+    .logout:hover {
+      background: #cc0000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- زر تسجيل الخروج -->
+  <button class="logout" onclick="logout()">🚪 خروج</button>
+
+  <!-- 🔹 الصفحة الترحيبية -->
+  <div class="intro active" id="intro">
+    <h1>⛪ كنيسة ماري جرجس إمبابة - خدمة إعدادي بنين</h1>
+    <p id="welcome"></p>
+    <img src="WhatsApp Image 2025-11-12 at 11.20.01 PM.jpeg" alt="مارجرجس">
+    <p>احنا عندنا نظام 🔥</p>
+    <p>أول حاجة بنفطر مع بعض بعد كده الخدمة (الأكل ١٠/١٠ 👍)</p>
+    <p>وعندنا نظام كاهوت، فرق، وكورة بانتظام ⚽</p>
+    <p>ومعانا أجمل وأحسن الخدام ❤️</p>
+    <p>وأقوى أمين ومدرس إنجليزي <strong>باسون رامز</strong> 📚</p>
+    <img src="WhatsApp Image 2025-11-12 at 9.00.01 PM.jpeg" alt="صورة الأمين">
+    <p>وكمان عندنا المساعد الجميل اللي كلنا بنحبه ❤️ <strong>باسون جورج عوض</strong></p>
+    <img src="WhatsApp Image 2025-11-12 at 9.00.01 PM (1).jpeg" alt="باسون جورج" class="ff">
+    <br>
+    <button onclick="startSystem()">🚀 ابدأ النظام</button>
+  </div>
+
+  <!-- 🔹 الصفحة الرئيسية -->
+  <div class="main" id="main">
+    <h1>📋 نظام إدارة الفرق والغياب</h1>
+
+    <input type="text" id="studentName" placeholder="اسم الطالب">
+    <input type="number" id="studentNumber" placeholder="رقم الطالب">
+    <input type="password" id="studentPassword" placeholder="كلمة السر">
+    <button onclick="addStudent()">➕ إضافة طالب</button>
+
+    <div class="student-list">
+      <h2>قائمة الطلاب</h2>
+      <table id="studentsTable">
+        <tr>
+          <th>الاسم</th>
+          <th>الرقم</th>
+          <th>الحضور</th>
+        </tr>
+      </table>
+    </div>
+
+    <div>
+      <h2>توزيع الفرق</h2>
+      <select id="teamCount">
+        <option value="2">2 فرق</option>
+        <option value="3">3 فرق</option>
+        <option value="4">4 فرق</option>
+        <option value="5">5 فرق</option>
+      </select>
+      <button onclick="divideTeams()">🎯 تقسيم إلى فرق</button>
+    </div>
+
+    <div class="teams" id="teams"></div>
+
+    <div class="points" id="pointsArea" style="display:none;">
+      <h2>🏅 النقاط</h2>
+      <div id="pointsList"></div>
+    </div>
+  </div>
+
+  <script>
+    // التحقق من تسجيل الدخول
+    const user = JSON.parse(localStorage.getItem("loggedUser"));
+    if (!user) {
+      alert("⚠️ يجب تسجيل الدخول أولًا");
+      window.location.href = "index.html";
+    }
+
+    document.getElementById("welcome").innerHTML = `👋 أهلاً يا <strong>${user.name}</strong>!`;
+
+    function logout() {
+      localStorage.removeItem("loggedUser");
+      window.location.href = "index.html";
+    }
+
+    // الصفحة
+    function startSystem() {
+      document.getElementById("intro").classList.remove("active");
+      document.getElementById("main").classList.add("active");
+    }
+
+    let students = [];
+    let teamPoints = [];
+
+    function addStudent() {
+      const name = document.getElementById("studentName").value.trim();
+      const number = document.getElementById("studentNumber").value.trim();
+      const password = document.getElementById("studentPassword").value.trim();
+
+      if (!name || !number || !password) {
+        alert("من فضلك أكمل كل البيانات!");
+        return;
+      }
+
+      students.push({ name, number, password, present: true });
+      document.getElementById("studentName").value = "";
+      document.getElementById("studentNumber").value = "";
+      document.getElementById("studentPassword").value = "";
+      displayStudents();
+    }
+
+    function displayStudents() {
+      const table = document.getElementById("studentsTable");
+      table.innerHTML = `
+        <tr>
+          <th>الاسم</th>
+          <th>الرقم</th>
+          <th>الحضور</th>
+        </tr>
+      `;
+      students.forEach((s, i) => {
+        const row = document.createElement("tr");
+        row.className = s.present ? "" : "absent";
+        row.innerHTML = `
+          <td>${s.name}</td>
+          <td>${s.number}</td>
+          <td>
+            <button onclick="togglePresence(${i})">
+              ${s.present ? "✅ حاضر" : "❌ غائب"}
+            </button>
+          </td>
+        `;
+        table.appendChild(row);
+      });
+    }
+
+    function togglePresence(index) {
+      students[index].present = !students[index].present;
+      displayStudents();
+    }
+
+    function divideTeams() {
+      const count = parseInt(document.getElementById("teamCount").value);
+      if (students.length < count) return alert("عدد الطلاب أقل من عدد الفرق!");
+
+      const shuffled = [...students].sort(() => 0.5 - Math.random());
+      const teams = Array.from({ length: count }, () => []);
+
+      shuffled.forEach((student, i) => {
+        teams[i % count].push(student);
+      });
+
+      const container = document.getElementById("teams");
+      container.innerHTML = "";
+      teamPoints = new Array(count).fill(0);
+
+      teams.forEach((team, i) => {
+        const div = document.createElement("div");
+        div.className = "team";
+        div.innerHTML = `
+          <h3>فريق ${i + 1}</h3>
+          <ul>${team.map(s => `<li>${s.name}</li>`).join("")}</ul>
+          <button onclick="addPoint(${i})">🏆 +10 نقاط</button>
+        `;
+        container.appendChild(div);
+      });
+
+      document.getElementById("pointsArea").style.display = "block";
+      updatePoints();
+    }
+
+    function addPoint(teamIndex) {
+      teamPoints[teamIndex] += 10;
+      updatePoints();
+    }
+
+    function updatePoints() {
+      const list = document.getElementById("pointsList");
+      list.innerHTML = teamPoints.map((p, i) => `<p>فريق ${i + 1}: ${p} نقطة</p>`).join("");
+    }
+  </script>
+</body>
+</html>
